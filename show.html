@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>show</title>
+	<!-- bootstrap and css -->
+	<link rel="stylesheet" type="text/css" href="front/CSS/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="front/CSS/style.css">
+    <!-- for IE explorer-->
+	<script type="text/javascript" src="front/JS/html5shiv.min.js"></script>
+    <script type="text/javascript" src="front/JS/respond.min.js"></script>
+	
+	
+</head>
+<body>
+     <nav>
+		 nav here
+	 </nav>
+	<div class="container-fluid top-container">
+		   <!--<div id="click" >click to show all</div>
+			<input id="inputSearch" type="text" placeholder="enter search word" >
+			<div class="results" id="search" >search results</div>-->
+
+	      <!-- show main ads on homepage -->
+			<div  class="container-fluid">
+				<div class="row">
+					<div id="show"  class="d-flex flex-wrap show-wrapper justify-content-space-between col-sm-12">
+
+					</div>
+				</div>	
+			</div>
+
+             <!-- search for ads on homepage -->
+			<div class="form-parent">
+				<form id="formSearch" class="mx-auto border py-5 px-5 rounded-3 background-red">
+					<div class="mx-auto wrapper">
+						<select name="state" id="state" class="form-select" aria-label="Default select example">
+							<option value="0">اختر محافظة</option>
+							<option value='23'>state 1</option>
+							<option value='2'>state 2</option>
+						</select>
+
+						<select name="city" id="city" class="form-select" aria-label="Default select example">
+							<option value="0">اختر مدينة</option>
+							<option value='231'>city1</option>
+							<option value='48'>city2</option>
+						</select>
+						<input type="hidden" value="1" id="page" name="page">
+						<button class="btn btn-success" type="submit">بحث</button>
+				   </div>
+				</form>
+			</div>
+            
+			  <!-- show search ads on homepage -->
+			<div  class="container-fluid">
+				<div class="row">
+					<div id="show2"  class="d-flex flex-wrap show-wrapper justify-content-space-between col-sm-12"></div>
+					<p class="mx-auto w-fit red mt-5"></p>
+				</div>	
+			</div>
+			<button class="btn btn-info none mx-auto" id="loadMore">load more <span class="spinner-border spinner" role="status" aria-hidden="true"></span></button>
+  </div>
+
+  <footer>
+	  footer
+  </footer>
+  
+
+   
+  <script type="text/javascript" src="front/JS/jquery-3.6.0.min.js"></script>	
+  <script type="text/javascript" src="front/JS/bootstrap.min.js"></script>	
+  <script type="text/javascript" src="front/JS/js.js"></script>	
+</body>
+</html>
+
+
