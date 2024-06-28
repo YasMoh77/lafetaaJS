@@ -2,8 +2,17 @@
 
 
 var searchWord='';
+var top=document.querySelector('.top-container');
+var form=document.querySelector('.form-parent');
+var formSearch=document.getElementById('formSearch');
+var torch=document.getElementById('torch');
 var loadMoreBtn=document.getElementById('loadMore');
 var show=document.getElementById('show');
+var show2=document.getElementById('show2');
+var country=document.getElementById('country');
+var state=document.getElementById('state');
+var city=document.getElementById('city');
+
 
 //click img
 function clickImg(e){
@@ -11,7 +20,6 @@ function clickImg(e){
  var newDiv=	document.createElement('div');
  var newImg=	document.createElement('img');
  var newSpan=	document.createElement('span');
-
  //add src to img
  newImg.src=src;
  //add class overlay to newDiv
@@ -34,13 +42,14 @@ function clickImg(e){
 
 //get the first 12 items on homepage
 let bringLinks=()=>{
-	show.innerHTML='<span class="spinner-border spinner-search" role="status" aria-hidden="true" ></span>	';
-   fetch('http://localhost/abdu/index.php?key=123&email=hgq1100@yahoo.com&all=items').then(res=>res.json()).then(data=>{		
-   //var show=document.getElementById('show');
-   console.log(data);
+	//empty top-container, show spinner and hide the search form
+	top.innerHTML='';
+	show.innerHTML='<span  class="spinner-border d-block m-auto gray" role="status" aria-hidden="true" ></span>	';
+	form.style.display='none';
+	//fetch data
+	fetch('http://localhost/abdu/index.php?key=123&email=hgq1100@yahoo.com&all=items').then(res=>res.json()).then(data=>{		
 	var item='';
 	var baseURL='http://localhost/abdu/f/data/upload/';
-	const imageURL='';
 	
 	data.map(e=>{
 		    item+="<div class='col-sm-4 main'>";
@@ -63,16 +72,16 @@ let bringLinks=()=>{
 					item += "<img onclick='clickImg(this)' src='" + imageURL + "' alt='" + e.NAME + "' class='w-100 h-100 mx-auto d-block img' />";
 				}
 				
-				//	item+="<p>"+ img+"</p>";
-
 		    item+="</div>";	
 	});
- show.innerHTML=item;
+	//add data to div with id='show' and unhide the search form
+	show.innerHTML=item; 
+	form.style.display='block';
   });
 }
 
- //search with a word
-  let search=(e)=>{
+ //search with a word [cancelled]
+ /* let search=(e)=>{
   if(e.target.value===''){return searchWord=null;}
   if(e.target.value !=null){
     searchWord=e.target.value;
@@ -93,32 +102,16 @@ let bringLinks=()=>{
 
    });
   }else {item='Enter search word';}
-}
-
-
-//show more items when click a btn
-/*const loadMoreFunc=()=>{
-	let pageNum=2;
-	show.innerHTML='<span class="spinner-border spinner-search" role="status" aria-hidden="true" ></span>	';
-	fetch('http://localhost/abdu/index.php?key=123&email=hgq1100@yahoo.com&page=2').then(res=>res.json()).then(data=>{
-		console.log(data);
-		if(data.length>0){
-			data.map((e)=>{
-			
-					item+="<div>";
-						item+="<div id='title'>"+e.title+"</div>";
-						item+="<span id='desc'>"+e.description+"</span>";
-					item+="</div>";	
-			});}else {item='No search results';}
-		 show.innerHTML=item;
-	
-	})
 }*/
 
-//send form
+
+// search using a form
 async function formSearchFunc(e){
-    e.preventDefault(); // Prevent the form from submitting the traditional way
-  const show2=document.getElementById('show2');
+	// Prevent the form from submitting the traditional way
+    e.preventDefault(); 
+  //empty show2 and the p element next to it
+  show2.innerHTML = '';
+  show2.nextElementSibling.innerHTML ='';
   var loadMoreBtn=document.getElementById('loadMore');
 
     // Get form data
@@ -140,14 +133,14 @@ async function formSearchFunc(e){
             
 		// Try to parse the response as JSON
         const jsonResponse = await response.json();
-        
 		var baseURL='http://localhost/abdu/f/data/upload/';
-	    const imageURL='';
-
+		//store only data for displaying on search result part of the site
+        const dt=jsonResponse.data;
         // Update the UI with the JSON response
-		if(jsonResponse.length>0){
+		if(dt.length>0){
+			torch.innerHTML=` نتائج البحث:  &nbsp; ${jsonResponse.ads} &nbsp; اعلان   `;
 			let item = '';
-			jsonResponse.map(e => {
+			dt.map(e => {
 						item+="<div class='col-sm-4 main'>";
 						if (e.photo) { // Check if there is an image extension provided
 							const imageURL = baseURL + e.photo; // Construct the URL and replace the underscore with a dot
@@ -170,10 +163,12 @@ async function formSearchFunc(e){
 						item+="</div>";	
 				});
 				show2.innerHTML += item; // Append new items to the existing content
-				loadMoreBtn.style.display='block';
+				loadMoreBtn.style.display='block'; //show loadmore button
 		}else{
-			show2.innerHTML = '';
+			show2.innerHTML = '<p class="m-auto red"> لا توجد نتائج بحث </p>';
 			loadMoreBtn.style.display='none';
+			torch.innerHTML=` نتائج البحث:  &nbsp; ${jsonResponse.ads} &nbsp; اعلان   `;
+			
 		}		
 		
 };
@@ -183,23 +178,24 @@ let currentPage = 1;
 const loadMoreFunc = async(e) => {
 	e.preventDefault();
 	var show2=document.getElementById('show2');
-	var state=document.getElementById('formSearch').children[0].children[0].value;
-    var city=document.getElementById('formSearch').children[0].children[1].value;
+	var country=document.getElementById('formSearch').children[0].children[0].value;
+    var state=document.getElementById('formSearch').children[0].children[1].value;
+	var city=document.getElementById('formSearch').children[0].children[2].value;
 	
     currentPage++;
     loadMoreBtn.children[0].style.display='inline-block';//show spinner
    
 	try {
-        const response = await fetch(`http://localhost/abdu/index.php?state=${state}&city=${city}&page=${currentPage}`);
+        const response = await fetch(`http://localhost/abdu/index.php?country=${country}&state=${state}&city=${city}&page=${currentPage}`);
         
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const data = await response.json();   
+        const data = await response.json();  
+		console.log(data); 
 		var baseURL='http://localhost/abdu/f/data/upload/';
-	    const imageURL='';    
-			//console.log(data);
+	    
             let item = '';
 			if(data.length>0){
 				data.map(e => {
@@ -225,33 +221,74 @@ const loadMoreFunc = async(e) => {
 				show2.innerHTML += item; // Append new items to the existing content
 				
 		 }else{
-			 if(state==0||city==0){show2.nextElementSibling.innerHTML = '';}else{show2.nextElementSibling.innerHTML = '<p class="max-auto">لا توجد نتائج أخرى</p>';}
+			 /*if(state==0||city==0){show2.nextElementSibling.innerHTML = '';}else{*/show2.nextElementSibling.innerHTML = '<p class="max-auto">لا توجد نتائج أخرى</p>';//}
 		 }
 	} catch(error){
-		//console.error('Error:', error);
+		console.error('Error:', error);
 	}finally{
 		loadMoreBtn.children[0].style.display='none'; // remove spinner
 	}
         
 }
 
+//get states
+async function getStates(e){
+	const country=e.target.value;
+   //fetch states
+ const res= await fetch('http://localhost/abdu/state.php?country='+country);
+ const data= await res.json();
+ 
+ let item=`<option value="0">اختر محافظة</option>`;
+	if(data.length>0){
+        data.map(e=>{
+			item+=`<option value=${e.state_id}>${e.state_nameAR}</option>`;
+		});
+		state.innerHTML=item;
+	}else{item+=`<option value='0'>لا توجد نتائج</option>`;state.innerHTML=item;}
+}
+
+//get the cities
+async function getCities(e){
+  const state=e.target.value;
+  //fetch cities
+ const res= await fetch('http://localhost/abdu/state.php?c='+state);
+ const data= await res.json();
+ 
+ let item=`<option value="0">اختر مدينة</option>`;
+	if(data.length>0){
+        data.map(e=>{
+			item+=`<option value=${e.city_id}>${e.city_nameAR}</option>`;
+		});
+		city.innerHTML=item;
+	}else{item+=`<option>لا توجد نتائج</option>`;city.innerHTML=item;}						
+
+}
 
 
 
 
 //vars
-//load ads on home page automatically
+//load paid ads on home page automatically
 window.addEventListener('load',bringLinks);
 //search using input
 //var inputSearch=document.getElementById('inputSearch');
 //inputSearch.addEventListener("keyup",search);
 //send search form 
 var loadMoreBtn=document.getElementById('loadMore');
-var formSearch=document.getElementById('formSearch');
 formSearch.addEventListener("submit",formSearchFunc);
 //load more ads after sending search form
 loadMoreBtn.addEventListener("click",loadMoreFunc);
+//get states
+country.addEventListener('change',getStates);
+//get cities
+state.addEventListener('change',getCities);
+
+
 
 if (window.navigator=='false') {
 	alert('check connectio');
 }
+
+
+
+

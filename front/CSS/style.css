@@ -11,15 +11,43 @@
 /* classes **/
 .none{display: none;}
 .w-fit{width: fit-content;}
-.red{color: red;}
-
+.red{color: red;} .gray{color: gray;}
+:root{
+	--mainColor: #ffaa00;
+	--textColor:#0aadad;
+}
 body{
 	direction: rtl;
 	background: #fbfbfba6;
 }
 .top-container{
-	margin: 2vh auto 5vh;
+	margin: 22vh auto 5vh;
+	min-height: 60vh;
 }
+/***navbar */
+.navbar{
+	height: 15vh;
+	background: var(--mainColor) !important;
+}
+.navbar-brand{
+	color: white;
+    font-size: 2.5vw;
+    font-weight: bold;
+    font-family: system-ui;
+}
+.navbar-nav{
+  margin: auto;
+}
+.navbar-nav li{
+	margin: 0 2vw;
+  }
+  .navbar-nav .nav-link,.navbar-nav .nav-link.active{
+	color:white;
+	font-weight: bold;
+  }
+  .navbar-nav .nav-link.active{
+	  border-bottom: white solid;
+  }
 /** show page */
 .show-wrapper{
 	justify-content: space-between;
@@ -34,7 +62,7 @@ body{
 /** click img to enlarge*/
 .overlay {
 	position: fixed;
-	top: 0;
+	top: 30px;
 	left: 0;
 	width: 100%;
 	height: 100%;
@@ -50,7 +78,7 @@ body{
 }
 .close-btn {
 	position: absolute;
-	top: 20px;
+	top: 70px;
 	right: 30px;
 	font-size: 30px;
 	color: white;
@@ -66,7 +94,7 @@ body{
     margin: 2vh auto 5vh;
 }
 #formSearch{
-	background: #FFC107;
+	background: var(--mainColor);
 	margin: 14vh auto 9vh;
 	width: 85%;
 }
@@ -75,7 +103,12 @@ body{
 }
 #formSearch select{
 	display: inline-block;
-    width: 45%;
+    width: 30%;
+	color: var(--textColor);
+}
+#formSearch button{
+	background: white;
+    color: var(--textColor);
 }
 .item {
 	border: 1px solid #ddd;
@@ -96,4 +129,36 @@ body{
     width: 1.5rem;
 	vertical-align: bottom;
 	color: gray;
+}
+/**footer */
+footer{
+	background: #1c3b92;
+	color: white;
+	height:60vh;
+}
+footer div:first-child{
+    font-size:1.7vw;
+}
+footer .row, footer .col, footer .card{
+	background: #1c3b92;
+	color: white;
+}
+footer .card{
+	border: none;
+}
+footer .row{
+	margin: 0;
+}
+.card-body a{
+	display: block;
+	margin-bottom: 5vh;
+    text-decoration: none;
+	color: white;
+}
+.card-body a:hover{
+    text-decoration: underline;
+}
+.bottom{
+	height: 10vh;
+	color: white;
 }

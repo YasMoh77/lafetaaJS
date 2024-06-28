@@ -16,9 +16,36 @@
 	
 </head>
 <body>
-     <nav>
-		 nav here
-	 </nav>
+	 <!--navbar -->
+	 <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">
+				<img src="" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+				لافتة
+			  </a>
+		  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse left" id="navbarNav">
+			<ul class="navbar-nav">
+			  <li class="nav-item">
+				<a class="nav-link active" aria-current="page" href="#">الرئيسية</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="#">عن الموقع</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="#">سؤال وجواب</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link ">المزيد</a>
+			  </li>
+			</ul>
+		  </div>
+		</div>
+	  </nav>
+	
+     <!--top container -->
 	<div class="container-fluid top-container">
 		   <!--<div id="click" >click to show all</div>
 			<input id="inputSearch" type="text" placeholder="enter search word" >
@@ -36,27 +63,31 @@
              <!-- search for ads on homepage -->
 			<div class="form-parent">
 				<form id="formSearch" class="mx-auto border py-5 px-5 rounded-3 background-red">
-					<div class="mx-auto wrapper">
-						<select name="state" id="state" class="form-select" aria-label="Default select example">
+					<div class="mx-auto wrapper d-flex justify-content-between">
+						<select name="country" id="country" class="form-select" aria-label="Default select example">
+							<option value="0">اختر دولة</option>
+							<option value="1"> مصر</option>
+						</select>
+
+						<select name="state"  id="state" class="form-select" aria-label="Default select example">
 							<option value="0">اختر محافظة</option>
-							<option value='23'>state 1</option>
-							<option value='2'>state 2</option>
 						</select>
 
 						<select name="city" id="city" class="form-select" aria-label="Default select example">
 							<option value="0">اختر مدينة</option>
-							<option value='231'>city1</option>
-							<option value='48'>city2</option>
 						</select>
+
 						<input type="hidden" value="1" id="page" name="page">
-						<button class="btn btn-success" type="submit">بحث</button>
+						<button class="btn searchBtn" type="submit">بحث</button>
 				   </div>
 				</form>
+			    
 			</div>
             
 			  <!-- show search ads on homepage -->
 			<div  class="container-fluid">
 				<div class="row">
+					<p id="torch"></p>
 					<div id="show2"  class="d-flex flex-wrap show-wrapper justify-content-space-between col-sm-12"></div>
 					<p class="mx-auto w-fit red mt-5"></p>
 				</div>	
@@ -64,9 +95,42 @@
 			<button class="btn btn-info none mx-auto" id="loadMore">load more <span class="spinner-border spinner" role="status" aria-hidden="true"></span></button>
   </div>
 
-  <footer>
-	  footer
+  <footer id="footer" class="d-flex">
+	<div class="flex-shrink-1 pt-5 px-3">info about our website its good one which you can see ads on</div>
+	<div class="row row-cols-1 row-cols-md-3 g-4 w-100">
+		<div class="col">
+		  <div class="card h-100">
+			<div class="card-body">
+			  <h5 class="card-title mb-4">من نحن</h5>
+			  <a class="card-text">عن الموقع</a>
+			  <a class="card-text">سؤال وجواب</a>
+			  <a class="card-text">اتصل بنا</a>
+			</div>
+		  </div>
+		</div>
+		<div class="col">
+		  <div class="card h-100">
+			<div class="card-body">
+				<h5 class="card-title mb-4">من نحن</h5>
+				<a class="card-text">عن الموقع</a>
+				<a class="card-text">سؤال وجواب</a>
+				<a class="card-text">اتصل بنا</a>
+			</div>
+		  </div>
+		</div>
+		<div class="col">
+		  <div class="card h-100">
+			<div class="card-body">
+				<h5 class="card-title mb-4">من نحن</h5>
+				<a class="card-text">عن الموقع</a>
+				<a class="card-text">سؤال وجواب</a>
+				<a class="card-text">اتصل بنا</a>
+			</div>
+		  </div>
+		</div>
+	  </div>
   </footer>
+  <div class="bottom d-flex justify-content-center align-items-center bg-dark">all rights res</div>
   
 
    
